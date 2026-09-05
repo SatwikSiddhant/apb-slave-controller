@@ -1,0 +1,677 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.33 (git sha1 2584903a060)
+
+
+-- Running command `read_verilog -sv rtl/apb_slave.sv; hierarchy -top apb_slave; proc; opt; synth -top apb_slave; stat' --
+
+1. Executing Verilog-2005 frontend: rtl/apb_slave.sv
+Parsing SystemVerilog input from `rtl/apb_slave.sv' to AST representation.
+Generating RTLIL representation for module `\apb_slave'.
+Successfully finished Verilog frontend.
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1. Analyzing design hierarchy..
+Top module:  \apb_slave
+
+2.2. Analyzing design hierarchy..
+Top module:  \apb_slave
+Removed 0 unused modules.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$rtl/apb_slave.sv:126$24 in module apb_slave.
+Marked 2 switch rules as full_case in process $proc$rtl/apb_slave.sv:107$7 in module apb_slave.
+Marked 1 switch rules as full_case in process $proc$rtl/apb_slave.sv:0$4 in module apb_slave.
+Marked 2 switch rules as full_case in process $proc$rtl/apb_slave.sv:0$1 in module apb_slave.
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 1 redundant assignment.
+Promoted 4 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \presetn in `\apb_slave.$proc$rtl/apb_slave.sv:126$24'.
+Found async reset \presetn in `\apb_slave.$proc$rtl/apb_slave.sv:107$7'.
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~7 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\apb_slave.$proc$rtl/apb_slave.sv:126$24'.
+     1/5: $0\rd_count[7:0]
+     2/5: $0\wr_count[7:0]
+     3/5: $0\scratch_reg[31:0]
+     4/5: $0\data_reg[31:0]
+     5/5: $0\ctrl_reg[31:0]
+Creating decoders for process `\apb_slave.$proc$rtl/apb_slave.sv:107$7'.
+     1/1: $0\wait_cnt[7:0]
+Creating decoders for process `\apb_slave.$proc$rtl/apb_slave.sv:0$4'.
+     1/3: $1\rdata_mux[31:0]
+     2/3: $1\is_ro[0:0]
+     3/3: $1\addr_valid[0:0]
+Creating decoders for process `\apb_slave.$proc$rtl/apb_slave.sv:0$1'.
+     1/2: $2\phase[1:0]
+     2/2: $1\phase[1:0]
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\apb_slave.\rdata_mux' from process `\apb_slave.$proc$rtl/apb_slave.sv:0$4'.
+No latch inferred for signal `\apb_slave.\addr_valid' from process `\apb_slave.$proc$rtl/apb_slave.sv:0$4'.
+No latch inferred for signal `\apb_slave.\is_ro' from process `\apb_slave.$proc$rtl/apb_slave.sv:0$4'.
+No latch inferred for signal `\apb_slave.\phase' from process `\apb_slave.$proc$rtl/apb_slave.sv:0$1'.
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\apb_slave.\ctrl_reg' using process `\apb_slave.$proc$rtl/apb_slave.sv:126$24'.
+  created $adff cell `$procdff$82' with positive edge clock and negative level reset.
+Creating register for signal `\apb_slave.\data_reg' using process `\apb_slave.$proc$rtl/apb_slave.sv:126$24'.
+  created $adff cell `$procdff$83' with positive edge clock and negative level reset.
+Creating register for signal `\apb_slave.\scratch_reg' using process `\apb_slave.$proc$rtl/apb_slave.sv:126$24'.
+  created $adff cell `$procdff$84' with positive edge clock and negative level reset.
+Creating register for signal `\apb_slave.\wr_count' using process `\apb_slave.$proc$rtl/apb_slave.sv:126$24'.
+  created $adff cell `$procdff$85' with positive edge clock and negative level reset.
+Creating register for signal `\apb_slave.\rd_count' using process `\apb_slave.$proc$rtl/apb_slave.sv:126$24'.
+  created $adff cell `$procdff$86' with positive edge clock and negative level reset.
+Creating register for signal `\apb_slave.\wait_cnt' using process `\apb_slave.$proc$rtl/apb_slave.sv:107$7'.
+  created $adff cell `$procdff$87' with positive edge clock and negative level reset.
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 3 empty switches in `\apb_slave.$proc$rtl/apb_slave.sv:126$24'.
+Removing empty process `apb_slave.$proc$rtl/apb_slave.sv:126$24'.
+Found and cleaned up 1 empty switch in `\apb_slave.$proc$rtl/apb_slave.sv:107$7'.
+Removing empty process `apb_slave.$proc$rtl/apb_slave.sv:107$7'.
+Found and cleaned up 1 empty switch in `\apb_slave.$proc$rtl/apb_slave.sv:0$4'.
+Removing empty process `apb_slave.$proc$rtl/apb_slave.sv:0$4'.
+Found and cleaned up 2 empty switches in `\apb_slave.$proc$rtl/apb_slave.sv:0$1'.
+Removing empty process `apb_slave.$proc$rtl/apb_slave.sv:0$1'.
+Cleaned up 7 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+<suppressed ~4 debug messages>
+
+4. Executing OPT pass (performing simple optimizations).
+
+4.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+4.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+<suppressed ~36 debug messages>
+Removed a total of 12 cells.
+
+4.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \apb_slave..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$77.
+Removed 1 multiplexer ports.
+<suppressed ~10 debug messages>
+
+4.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \apb_slave.
+    New ctrl vector for $pmux cell $procmux$68: $auto$opt_reduce.cc:134:opt_pmux$89
+  Optimizing cells in module \apb_slave.
+Performed a total of 1 changes.
+
+4.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+4.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$82 ($adff) from module apb_slave (D = \pwdata, Q = \ctrl_reg).
+Adding EN signal on $procdff$83 ($adff) from module apb_slave (D = \pwdata, Q = \data_reg).
+Adding EN signal on $procdff$84 ($adff) from module apb_slave (D = \pwdata, Q = \scratch_reg).
+Adding EN signal on $procdff$85 ($adff) from module apb_slave (D = $add$rtl/apb_slave.sv:135$26_Y, Q = \wr_count).
+Adding EN signal on $procdff$86 ($adff) from module apb_slave (D = $add$rtl/apb_slave.sv:143$27_Y, Q = \rd_count).
+
+4.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+Removed 9 unused cells and 57 unused wires.
+<suppressed ~10 debug messages>
+
+4.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+4.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \apb_slave..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~5 debug messages>
+
+4.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \apb_slave.
+Performed a total of 0 changes.
+
+4.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+4.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+
+4.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+4.16. Finished OPT passes. (There is nothing left to do.)
+
+5. Executing SYNTH pass.
+
+5.1. Executing HIERARCHY pass (managing design hierarchy).
+
+5.1.1. Analyzing design hierarchy..
+Top module:  \apb_slave
+
+5.1.2. Analyzing design hierarchy..
+Top module:  \apb_slave
+Removed 0 unused modules.
+
+5.2. Executing PROC pass (convert processes to netlists).
+
+5.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+5.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+5.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+5.2.4. Executing PROC_INIT pass (extract init attributes).
+
+5.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+5.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+5.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+5.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+5.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+5.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+5.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+5.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+
+5.5. Executing CHECK pass (checking for obvious problems).
+Checking module apb_slave...
+Found and reported 0 problems.
+
+5.6. Executing OPT pass (performing simple optimizations).
+
+5.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+5.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \apb_slave..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~5 debug messages>
+
+5.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \apb_slave.
+Performed a total of 0 changes.
+
+5.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+5.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+
+5.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.6.9. Finished OPT passes. (There is nothing left to do.)
+
+5.7. Executing FSM pass (extract and optimize FSM).
+
+5.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+5.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+5.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+5.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+
+5.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+5.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+5.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+5.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+5.8. Executing OPT pass (performing simple optimizations).
+
+5.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+5.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \apb_slave..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~5 debug messages>
+
+5.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \apb_slave.
+Performed a total of 0 changes.
+
+5.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+5.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+
+5.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.8.9. Finished OPT passes. (There is nothing left to do.)
+
+5.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 7 bits (of 8) from port B of cell apb_slave.$add$rtl/apb_slave.sv:109$11 ($add).
+Removed top 7 bits (of 8) from port B of cell apb_slave.$add$rtl/apb_slave.sv:135$26 ($add).
+Removed top 7 bits (of 8) from port B of cell apb_slave.$add$rtl/apb_slave.sv:143$27 ($add).
+Removed top 4 bits (of 8) from port B of cell apb_slave.$procmux$69_CMP0 ($eq).
+Removed top 4 bits (of 8) from port B of cell apb_slave.$procmux$70_CMP0 ($eq).
+Removed top 5 bits (of 8) from port B of cell apb_slave.$procmux$71_CMP0 ($eq).
+Removed top 1 bits (of 2) from mux cell apb_slave.$procmux$74 ($mux).
+Removed top 1 bits (of 2) from wire apb_slave.$2\phase[1:0].
+Removed top 16 bits (of 32) from wire apb_slave.status_val.
+
+5.10. Executing PEEPOPT pass (run peephole optimizers).
+
+5.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~1 debug messages>
+
+5.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module apb_slave:
+  creating $macc model for $add$rtl/apb_slave.sv:109$11 ($add).
+  creating $macc model for $add$rtl/apb_slave.sv:135$26 ($add).
+  creating $macc model for $add$rtl/apb_slave.sv:143$27 ($add).
+  creating $alu model for $macc $add$rtl/apb_slave.sv:143$27.
+  creating $alu model for $macc $add$rtl/apb_slave.sv:135$26.
+  creating $alu model for $macc $add$rtl/apb_slave.sv:109$11.
+  creating $alu cell for $add$rtl/apb_slave.sv:109$11: $auto$alumacc.cc:485:replace_alu$103
+  creating $alu cell for $add$rtl/apb_slave.sv:135$26: $auto$alumacc.cc:485:replace_alu$106
+  creating $alu cell for $add$rtl/apb_slave.sv:143$27: $auto$alumacc.cc:485:replace_alu$109
+  created 3 $alu and 0 $macc cells.
+
+5.13. Executing SHARE pass (SAT-based resource sharing).
+
+5.14. Executing OPT pass (performing simple optimizations).
+
+5.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+5.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \apb_slave..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~5 debug messages>
+
+5.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \apb_slave.
+Performed a total of 0 changes.
+
+5.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+5.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+
+5.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.14.9. Finished OPT passes. (There is nothing left to do.)
+
+5.15. Executing MEMORY pass.
+
+5.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+5.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+5.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+5.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+5.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+5.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+
+5.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+5.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+5.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+
+5.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+5.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+
+5.17. Executing OPT pass (performing simple optimizations).
+
+5.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+<suppressed ~3 debug messages>
+
+5.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+5.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+Removed 0 unused cells and 3 unused wires.
+<suppressed ~1 debug messages>
+
+5.17.5. Finished fast OPT passes.
+
+5.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+5.19. Executing OPT pass (performing simple optimizations).
+
+5.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+5.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \apb_slave..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~3 debug messages>
+
+5.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \apb_slave.
+Performed a total of 0 changes.
+
+5.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+Removed a total of 0 cells.
+
+5.19.6. Executing OPT_SHARE pass.
+
+5.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+
+5.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.19.10. Finished OPT passes. (There is nothing left to do.)
+
+5.20. Executing TECHMAP pass (map to technology primitives).
+
+5.20.1. Executing Verilog-2005 frontend: /usr/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+5.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $logic_not.
+Using template $paramod$c3cd1564c35d873179656addd6052d7ea8b6d991\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $mux.
+Using template $paramod$b098bc6f249c0ac91c4d6e19d54b23c285914115\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $and.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000001000 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $or.
+No more expansions possible.
+<suppressed ~405 debug messages>
+
+5.21. Executing OPT pass (performing simple optimizations).
+
+5.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+<suppressed ~189 debug messages>
+
+5.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+<suppressed ~51 debug messages>
+Removed a total of 17 cells.
+
+5.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+Removed 30 unused cells and 256 unused wires.
+<suppressed ~31 debug messages>
+
+5.21.5. Finished fast OPT passes.
+
+5.22. Executing ABC pass (technology mapping using ABC).
+
+5.22.1. Extracting gate netlist of module `\apb_slave' to `<abc-temp-dir>/input.blif'..
+Extracted 372 gates and 504 wires to a netlist network with 131 inputs and 63 outputs.
+
+5.22.1.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+5.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               NOR cells:        3
+ABC RESULTS:                OR cells:       70
+ABC RESULTS:             ORNOT cells:       38
+ABC RESULTS:               NOT cells:        2
+ABC RESULTS:               AND cells:       14
+ABC RESULTS:              NAND cells:       13
+ABC RESULTS:              XNOR cells:        5
+ABC RESULTS:            ANDNOT cells:      197
+ABC RESULTS:               XOR cells:       16
+ABC RESULTS:        internal signals:      310
+ABC RESULTS:           input signals:      131
+ABC RESULTS:          output signals:       63
+Removing temp directory.
+
+5.23. Executing OPT pass (performing simple optimizations).
+
+5.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module apb_slave.
+
+5.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\apb_slave'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+5.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \apb_slave..
+Removed 0 unused cells and 281 unused wires.
+<suppressed ~7 debug messages>
+
+5.23.5. Finished fast OPT passes.
+
+5.24. Executing HIERARCHY pass (managing design hierarchy).
+
+5.24.1. Analyzing design hierarchy..
+Top module:  \apb_slave
+
+5.24.2. Analyzing design hierarchy..
+Top module:  \apb_slave
+Removed 0 unused modules.
+
+5.25. Printing statistics.
+
+=== apb_slave ===
+
+   Number of wires:                321
+   Number of wire bits:            554
+   Number of public wires:          19
+   Number of public wire bits:     217
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                477
+     $_ANDNOT_                     196
+     $_AND_                         14
+     $_DFFE_PN0P_                  112
+     $_DFF_PN0_                      8
+     $_NAND_                        13
+     $_NOR_                          3
+     $_NOT_                          2
+     $_ORNOT_                       38
+     $_OR_                          70
+     $_XNOR_                         5
+     $_XOR_                         16
+
+5.26. Executing CHECK pass (checking for obvious problems).
+Checking module apb_slave...
+Found and reported 0 problems.
+
+6. Printing statistics.
+
+=== apb_slave ===
+
+   Number of wires:                321
+   Number of wire bits:            554
+   Number of public wires:          19
+   Number of public wire bits:     217
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                477
+     $_ANDNOT_                     196
+     $_AND_                         14
+     $_DFFE_PN0P_                  112
+     $_DFF_PN0_                      8
+     $_NAND_                        13
+     $_NOR_                          3
+     $_NOT_                          2
+     $_ORNOT_                       38
+     $_OR_                          70
+     $_XNOR_                         5
+     $_XOR_                         16
+
+End of script. Logfile hash: 7bdd61bded, CPU: user 0.22s system 0.01s, MEM: 15.22 MB peak
+Yosys 0.33 (git sha1 2584903a060)
+Time spent: 25% 1x abc (0 sec), 19% 19x opt_expr (0 sec), ...
